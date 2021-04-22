@@ -1,0 +1,7 @@
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\bin\Debug\TugasOOP.exe.config
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\bin\Debug\TugasOOP.exe
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\bin\Debug\TugasOOP.pdb
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\obj\Debug\TugasOOP.csprojAssemblyReference.cache
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\obj\Debug\TugasOOP.csproj.CoreCompileInputs.cache
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\obj\Debug\TugasOOP.exe
+C:\Users\acer\source\repos\TugasOOP\TugasOOP\obj\Debug\TugasOOP.pdb
