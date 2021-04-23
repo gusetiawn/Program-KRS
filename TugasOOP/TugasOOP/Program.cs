@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,140 +10,199 @@ namespace TugasOOP
     {
         static void Main(string[] args)
         {
-            List<Mahasiswa> mahasiswas = DaftarMahasiswa();
-            List<MataKuliah> matkul = DaftarMataKuliah();
-            while (true)
+
+            try
             {
-                Menu();
-                int opsi = Convert.ToInt32(Console.ReadLine());
-                switch (opsi)
+                List<Mahasiswa> mahasiswas = DaftarMahasiswa();
+                List<MataKuliah> matkuls = DaftarMataKuliah();
+                while (true)
                 {
-                    case 1:
-                        TambahMataKuliah(mahasiswas, matkul);
-                        break;
-                    case 2:
-                        HapusMataKuliah(mahasiswas);
-                        break;
-                    case 3:
-                        MenampilkanKRSMahasiswa(mahasiswas);
-                        break;
-                    case 4:
-                        TambahMahasiswaBaru(mahasiswas);
-                        break;
-                    case 5:
-                        MenampilkanDaftarMataKuliaah(matkul);
-                        break;
-                    case 6:
-                        MenampilkanKRSMahasiswaTertentu(mahasiswas);
-                        break;
-                    default:
-                        break;
+                    Menu();
+                    int opsi = Convert.ToInt32(Console.ReadLine());
+                    switch (opsi)
+                    {
+                        case 1:
+                            TambahMataKuliah(mahasiswas, matkuls);
+                            break;
+                        case 2:
+                            HapusMataKuliah(mahasiswas);
+                            break;
+                        case 3:
+                            MenampilkanKRSMahasiswa(mahasiswas);
+                            break;
+                        case 4:
+                            TambahMahasiswaBaru(mahasiswas);
+                            break;
+                        case 5:
+                            MenampilkanDaftarMataKuliah(matkuls);
+                            break;
+                        case 6:
+                            MenampilkanKRSMahasiswaTertentu(mahasiswas);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-        }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Bro, " + e.Message);
+            }
+            finally 
+            {
+                Console.WriteLine();
+                Console.WriteLine("-== PROGRAM BERAKHIR ==-");            
+            }
 
+        }
         private static void MenampilkanKRSMahasiswaTertentu(List<Mahasiswa> mahasiswas)
         {
-            Console.Write(" >> PILIH MAHASISWA : ");
-            int pilihmhs3 = Convert.ToInt32(Console.ReadLine());
-            Mahasiswa mahasiswa3 = mahasiswas.ElementAt(pilihmhs3 - 1);
-            Console.WriteLine(mahasiswa3.Nama);
-            mahasiswa3.TampilMataKuliah();
+
+            try
+            {
+                Console.Write(" >> PILIH MAHASISWA : ");
+                int pilihmhs3 = Convert.ToInt32(Console.ReadLine());
+                Mahasiswa mahasiswa3 = mahasiswas.ElementAt(pilihmhs3 - 1);
+                Console.WriteLine($"Nama : {mahasiswa3.Nama}");
+                Console.WriteLine($"NIM : {mahasiswa3.Nim}");
+                mahasiswa3.TampilMataKuliah();
+                Console.WriteLine("");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Tidak Ada Mahasiswa Tersebut");
+            }
+            
         }
-
-        private static void MenampilkanDaftarMataKuliaah(List<MataKuliah> matkul)
+        private static void MenampilkanDaftarMataKuliah(List<MataKuliah> matkul)
         {
-            Console.WriteLine("-== MENAMPILKAN MATA KULIAH ==-");
+            Console.WriteLine("-======   MENAMPILKAN MATA KULIAH   ======-");
             Console.WriteLine("--===== DAFTAR MATA KULIAH YANG TERSEDIA =====--");
-
+            Console.WriteLine("--============================================--");
             int angka = 0;
-            Console.WriteLine("--======== Daftar Mata Kuliah ========--");
             foreach (MataKuliah mk in matkul)
             {
                 Console.WriteLine($"Mata Kuliah ke-{angka += 1}: {mk.NamaMK}");
             }
+            Console.WriteLine("");
         }
-
         private static void TambahMahasiswaBaru(List<Mahasiswa> mahasiswas)
         {
-            Console.WriteLine("-== MASUKKAN MAHASISWA BARU ==-");
+            Console.WriteLine("-===== MASUKKAN MAHASISWA BARU =====-");
+            Console.WriteLine("--=================================--");
             Console.Write("Masukkan NIM : ");
             string nim = Console.ReadLine();
             Console.WriteLine("Masukkan Nama : ");
             string nama = Console.ReadLine();
-
             mahasiswas.Add(new Mahasiswa(nim, nama));
-
-            Console.WriteLine("Mahasiswa baru sudah terdata");
+            Console.WriteLine("Mahasiswa Baru Berhasil Ditambahkan");
+            Console.WriteLine("");
         }
 
         private static void MenampilkanKRSMahasiswa(List<Mahasiswa> mahasiswas)
         {
-            Console.WriteLine("=== MATA KULIAH YANG BERHASIL DIAMBIL ===");
+            Console.WriteLine("-=== MATA KULIAH YANG BERHASIL DIAMBIL ===-");
+            Console.WriteLine("--=======================================--");
             foreach (Mahasiswa mhs in mahasiswas)
             {
                 Console.WriteLine($"NIM  : {mhs.Nim}");
                 Console.WriteLine($"NAMA : {mhs.Nama}");
                 mhs.TampilMataKuliah();
-                Console.WriteLine();
+                Console.WriteLine("");
             }
         }
 
         private static void HapusMataKuliah(List<Mahasiswa> mahasiswas)
         {
-            Console.Write(" >> Pilih Mahasiswa : ");
-            int pilihmhs2 = Convert.ToInt32(Console.ReadLine());
-            Mahasiswa mahasiswa2 = mahasiswas.ElementAt(pilihmhs2 - 1);
-            Console.WriteLine($"Nama Mahasiswa : {mahasiswa2.Nama}");
-
-            Console.Write(" >> Pilih Mata Kuliah yang Akan Dihapus: ");
-            int pilihHapus = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine($"Yakin Anda Akan Menghapus Mata Kuliah {mahasiswa2.MataKuliahs.ElementAt(pilihHapus - 1).NamaMK} ?(y/t)");
-
-            string ya = Console.ReadLine();
-            switch (ya)
+            try
             {
-                case "y":
-                    mahasiswa2.MataKuliahs.RemoveAt(pilihHapus - 1);
-                    break;
-                case "t":
-                    Console.WriteLine("Baik, Sistem Tidak Akan Menghapus Mata Kuliah Tersebut");
-                    break;
-                default:
-                    break;
-            }
+                Console.Write(" >> Pilih Mahasiswa : ");
+                int pilihmhs2 = Convert.ToInt32(Console.ReadLine());
+                Mahasiswa mahasiswa2 = mahasiswas.ElementAt(pilihmhs2 - 1);
+                Console.WriteLine($"Nama Mahasiswa : {mahasiswa2.Nama}");
+                Console.WriteLine($"NIM Mahasiswa : {mahasiswa2.Nim}");
 
-            Console.WriteLine();
+                try
+                {
+                    Console.Write(" >> Pilih Mata Kuliah yang Akan Dihapus: ");
+                    int pilihHapus = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine($"Yakin Anda Akan Menghapus Mata Kuliah {mahasiswa2.MataKuliahs.ElementAt(pilihHapus - 1).NamaMK} ?(y/t)");
+
+                    string ya = Console.ReadLine();
+                    switch (ya)
+                    {
+                        case "y":
+                            mahasiswa2.MataKuliahs.RemoveAt(pilihHapus - 1);
+                            break;
+                        case "t":
+                            Console.WriteLine("Baik, Sistem Tidak Akan Menghapus Mata Kuliah Tersebut");
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Console.WriteLine("");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Maaf, Tidak Ada MataKuliah Tersebut");
+                    Console.WriteLine("");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Maaf, Tidak Ada Mahasiswa Tersebut");
+                Console.WriteLine("");
+            }
         }
 
-        private static void TambahMataKuliah(List<Mahasiswa> mahasiswas, List<MataKuliah> matkul)
+        private static void TambahMataKuliah(List<Mahasiswa> mahasiswas, List<MataKuliah> matkuls)
         {
-            Console.Write(" >> Pilih Mahasiswa : ");
-            int pilihmhs = Convert.ToInt32(Console.ReadLine());
-            Mahasiswa mahasiswa = mahasiswas.ElementAt(pilihmhs - 1);
-            Console.WriteLine($"Nama Mahasiswa : {mahasiswa.Nama}");
 
-            Console.Write(" >> Pilih Kode Mata Kuliah Yang Akan Di Tambahkan : ");
-            int pilihMK = Convert.ToInt32(Console.ReadLine());
-            MataKuliah matkuliah = matkul.ElementAt(pilihMK - 1);
-            mahasiswa.MataKuliahs.Add(matkuliah);
-            Console.WriteLine($"Mata Kuliah {matkuliah.NamaMK} Berhasil Di Tambahkan");
-            Console.WriteLine();
+            try
+            {
+                Console.Write(" >> Pilih Mahasiswa : ");
+                int pilihmhs = Convert.ToInt32(Console.ReadLine());
+                Mahasiswa mahasiswa = mahasiswas.ElementAt(pilihmhs - 1);
+                Console.WriteLine($"Nama Mahasiswa : {mahasiswa.Nama}");
+                Console.WriteLine($"NIM Mahasiswa : {mahasiswa.Nim}");
+
+                try
+                {
+                    Console.Write(" >> Pilih Kode Mata Kuliah Yang Akan Di Tambahkan : ");
+                    int pilihMK = Convert.ToInt32(Console.ReadLine());
+                    MataKuliah matkuliah = matkuls.ElementAt(pilihMK - 1);
+                    mahasiswa.MataKuliahs.Add(matkuliah);
+                    Console.WriteLine($"Mata Kuliah {matkuliah.NamaMK} Berhasil Di Tambahkan");
+                    Console.WriteLine("");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Maaf, Tidak Ada Mata Kuliah Tersebut");
+                    Console.WriteLine("");
+                }  
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Maaf, Tidak Ada Mahasiswa Tersebut");
+                Console.WriteLine("");
+            }
+            
         }
 
         private static List<MataKuliah> DaftarMataKuliah()
         {
-            List<MataKuliah> matkul = new List<MataKuliah>();
-            matkul.Add(new MataKuliah("BAHASA INDONESIA"));
-            matkul.Add(new MataKuliah("BAHASA INGGRIS"));
-            matkul.Add(new MataKuliah("MATEMATIKA"));
-            matkul.Add(new MataKuliah("KALKULUS"));
-            matkul.Add(new MataKuliah("STATISTIKA"));
-            matkul.Add(new MataKuliah("BASIS DATA"));
-            matkul.Add(new MataKuliah("SISTEM DINAMIK"));
-            Console.WriteLine();
-            return matkul;
+            List<MataKuliah> matkuls = new List<MataKuliah>();
+            matkuls.Add(new MataKuliah("BAHASA INDONESIA"));
+            matkuls.Add(new MataKuliah("BAHASA INGGRIS"));
+            matkuls.Add(new MataKuliah("MATEMATIKA"));
+            matkuls.Add(new MataKuliah("KALKULUS"));
+            matkuls.Add(new MataKuliah("STATISTIKA"));
+            matkuls.Add(new MataKuliah("BASIS DATA"));
+            matkuls.Add(new MataKuliah("SISTEM DINAMIK"));
+            Console.WriteLine("");
+            return matkuls;
         }
 
         private static List<Mahasiswa> DaftarMahasiswa()
@@ -155,7 +214,7 @@ namespace TugasOOP
             mahasiswas.Add(new Mahasiswa("1167010004", "Muhammad Zulfikar"));
             mahasiswas.Add(new Mahasiswa("1167010005", "Mar'ie Muhammad"));
             mahasiswas.Add(new Mahasiswa("1167010006", "Mulia Abror Khairul"));
-            Console.WriteLine();
+            Console.WriteLine("");
             return mahasiswas;
         }
 
